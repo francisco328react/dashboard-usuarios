@@ -2,8 +2,8 @@
 export function App() {
 
   return (
-    <>
-      <h1>Hello, World</h1>
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-100">
+      <h1 className="text-3xl font-extrabold text-blue-600">Dashboard de Usuários</h1>
+    </div>
   )
 }
