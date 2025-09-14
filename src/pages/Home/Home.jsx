@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchUsuers } from "../../services/api"
-import { UserCard } from "../../components/UserCard";
+import { UserCard } from "../../components/UserCard/UserCard";
+import { Loader } from "../../components/Loader/Loader";
 
 export function Home() {
     const [users, setUsers] = useState([]);
@@ -18,9 +19,7 @@ export function Home() {
 
     if(loading) {
         return(
-            <div class="flex items-center justify-center min-h-screen">
-                <p className="text-lg text-gray-600">Carregando Usuários...</p>
-            </div>
+            <Loader />
         )
     }
 
