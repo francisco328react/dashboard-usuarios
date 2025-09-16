@@ -3,6 +3,8 @@ import { fetchUsuers } from "../../services/api"
 import { UserCard } from "../../components/UserCard/UserCard";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage"
+import { UseForm } from "../../components/UseForm/UseForm";
+import { Link } from "react-router-dom";
 
 export function Home() {
     const [users, setUsers] = useState([]);
@@ -23,7 +25,11 @@ export function Home() {
 
     useEffect(() => {
         loadingUsers();
-    }, [])
+    }, []);
+
+    const handleAddUser = (newUser) => {
+        setUsers((prev) => [newUser, ...prev])
+    }
 
     if(loading) return <Loader />
     if(error) return <ErrorMessage onRetry={loadingUsers} /> 
@@ -33,12 +39,14 @@ export function Home() {
             <h1 className="text-2xl font-bold text-center mb-6">
                 Lista de Usuários
             </h1>
+
+            <UseForm onAddUser={handleAddUser} />
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {users.map((user) => (
-                    <UserCard 
-                        key={user.id} 
-                        user={user}
-                    />
+                    <Link key={user.id} to={`/users/${user.id}`}>
+                        <UserCard user={user} />
+                    </Link>
                 ))}
             </div>
         </div>
