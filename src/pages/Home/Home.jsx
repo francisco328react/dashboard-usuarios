@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
-import { fetchUsuers } from "../../services/api"
+import { useEffect, useState } from "react";
+import { fetchUsuers } from "../../services/api";
 import { UserCard } from "../../components/UserCard/UserCard";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage"
 import { UseForm } from "../../components/UseForm/UseForm";
 import { Link } from "react-router-dom";
+import { generateFakeUser } from "../../utils/generateFakeUser";
 
 export function Home() {
     const [users, setUsers] = useState([]);
@@ -27,8 +28,9 @@ export function Home() {
         loadingUsers();
     }, []);
 
-    const handleAddUser = (newUser) => {
-        setUsers((prev) => [newUser, ...prev])
+    const handleAddUser = () => {
+        const fakeUser = generateFakeUser();
+        setUsers((prevUsers) => [...prevUsers, fakeUser])
     }
 
     if(loading) return <Loader />
@@ -44,9 +46,7 @@ export function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {users.map((user) => (
-                    <Link key={user.id} to={`/users/${user.id}`}>
-                        <UserCard user={user} />
-                    </Link>
+                    <UserCard key={user.id} user={user}/>
                 ))}
             </div>
         </div>
