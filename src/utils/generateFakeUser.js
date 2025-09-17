@@ -3,7 +3,7 @@ let userId = 1000;
 export function generateFakeUser() {
     userId++;
     return {
-        ud: userId,
+        id: userId,
         name: `Usuário fake ${userId}`,
         email: `fake${userId}@email.com`,
         company: {
